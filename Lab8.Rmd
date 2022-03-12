@@ -1,0 +1,70 @@
+---
+title: "lab 8"
+author: "Aisha Lakshman"
+date: "3/11/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Packages
+```{r}
+library(tidyverse)
+library(nnet)
+library(knitr)
+library(broom)
+library(patchwork)
+```
+# Data
+```{r}
+gss <- read_csv("gss2016.csv",
+  na = c("", "Don't know", "No answer", 
+         "Not applicable"), 
+         guess_max = 2867) %>%
+  select(natmass, age, sex, sei10, region, polviews) %>%
+  drop_na()
+```
+# Part I: Exploratory Data Analysis
+
+### Exercise 1
+```{r}
+gss <- gss %>%
+  mutate(natmass = fct_relevel(natmass, "About right", "Too little", "Too much"))
+```
+### Exercise 2
+```{r}
+gss <- gss %>% 
+  mutate(polviews = fct_relevel(polviews, "Extremely liberal", "Liberal", "Slightly liberal", "Moderate", "Slghtly conservative", "Conservative", "Extrmly conservative"))
+
+ggplot(data = gss, aes(x = polviews)) +
+  geom_bar() +
+  labs(title = "Distribution of Political Views (polviews)",
+       x="Political View",
+       y="Number of Observations")
+```
+
+The political view that occurs most frequently in this data set is "Moderate".
+
+### Exercise 3
+```{r}
+ggplot(data = gss, aes(fill=natmass, x=polviews)) +
+  geom_bar(position="fill") +
+  labs(title = "Relationship between Political Views and Mass Transportation Spending Views",
+       x="Political Views",
+       y="Proportion of Natmass") +
+  coord_flip()
+```
+This plot demonstrates that liberals believe that government spending on mass transportation is insufficient. The more conservative a person is, the more likely they believe government spending on mass transportation is adequate or excessive.
+
+### Exercise 4
+```{r}
+gss <- gss %>% 
+  mutate(age = if_else(age == "89 or older", 89, as.numeric(age)))
+```
+
+### Exercise 5
+```{r}
+
+```
+
