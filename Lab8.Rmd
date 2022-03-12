@@ -132,3 +132,19 @@ toolittle_avg_resid
 toomuch_avg_resid
 ```
 
+# Part IV: Using The Model
+
+### Exercise 16
+
+According to the model, the more liberal an individual is, the more liberal their attitude toward spending on mass transportation is "too little". In contrast, the more conservative a person is, the more they believe that spending on mass transportation is "too much".
+
+### Exercise 17
+```{r}
+gss <- gss %>% 
+  mutate(pred_probs = predict(model, type = "class"))
+
+gss %>% 
+  count(natmass, pred_probs)
+```
+
+misclassification rate  = (219 + 2 + 646 + 196 + 36) / 2590 = 0.424
