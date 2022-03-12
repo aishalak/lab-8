@@ -2,7 +2,9 @@
 title: "lab 8"
 author: "Aisha Lakshman"
 date: "3/11/2022"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
