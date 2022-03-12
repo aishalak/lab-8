@@ -95,3 +95,40 @@ model$AIC
 
 The model with the polviews variable has a lower AIC. As a result, the alternate hypothesis is correct. For the remainder of the lab, we will use the full model.
 
+# Part III: Model Fit
+
+### Exercise 11
+```{r}
+fitted <- model$fitted.values
+resid <- model$residuals
+head(fitted)
+head(resid)
+```
+### Exercise 12
+```{r}
+p1 <- arm::binnedplot(x = fitted[,1], y = resid[,1],
+                xlab = "Predicted Probabilities", 
+                ylab = "Residuals",
+                main = "About right", 
+                col.int = FALSE)
+p2 <- arm::binnedplot(x = fitted[,2], y = resid[,2],
+                xlab = "Predicted Probabilities", 
+                ylab = "Residuals",
+                main = "Too little", 
+                col.int = FALSE)
+p3 <- arm::binnedplot(x = fitted[,3], y = resid[,3],
+                xlab = "Predicted Probabilities", 
+                ylab = "Residuals",
+                main = "Too much", 
+                col.int = FALSE)
+```
+### Exercise 13
+```{r}
+aboutright_avg_resid <- mean(resid[,1])
+toolittle_avg_resid <- mean(resid[,2])
+toomuch_avg_resid <- mean(resid[,3])
+aboutright_avg_resid
+toolittle_avg_resid
+toomuch_avg_resid
+```
+
